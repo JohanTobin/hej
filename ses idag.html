@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vill du ses? 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .particle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-100px) translateX(100px) rotate(180deg);
+            }
+        }
+
+        @keyframes floatReverse {
+
+            0%,
+            100% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-80px) translateX(-80px) rotate(-180deg);
+            }
+        }
+
+        @keyframes bounceFloat {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-150px) scale(1.2);
+            }
+        }
+
+        .emoji-bg {
+            position: absolute;
+            font-size: 2.5em;
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 60px 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .emoji {
+            font-size: 4em;
+            margin: 20px 0;
+            animation: bounce 1s infinite, pulse 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-10px) scale(1.1);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                filter: brightness(1);
+            }
+
+            50% {
+                filter: brightness(1.5);
+            }
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            10% {
+                transform: translate(-5px, -5px) rotate(-2deg);
+            }
+
+            20% {
+                transform: translate(5px, 5px) rotate(2deg);
+            }
+
+            30% {
+                transform: translate(-5px, 5px) rotate(-1deg);
+            }
+
+            40% {
+                transform: translate(5px, -5px) rotate(1deg);
+            }
+
+            50% {
+                transform: translate(-3px, -3px) rotate(-2deg);
+            }
+
+            60% {
+                transform: translate(3px, 3px) rotate(2deg);
+            }
+
+            70% {
+                transform: translate(-3px, 3px) rotate(-1deg);
+            }
+
+            80% {
+                transform: translate(3px, -3px) rotate(1deg);
+            }
+
+            90% {
+                transform: translate(-1px, -1px) rotate(-1deg);
+            }
+        }
+
+        @keyframes rainbowBg {
+            0% {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
+
+            20% {
+                background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            }
+
+            40% {
+                background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            }
+
+            60% {
+                background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            }
+
+            80% {
+                background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            }
+
+            100% {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
+        }
+
+        body.celebrating {
+            animation: rainbowBg 3s ease infinite;
+        }
+
+        .container.shake {
+            animation: shake 0.5s ease;
+        }
+
+        .floating-heart {
+            position: fixed;
+            font-size: 2em;
+            pointer-events: none;
+            z-index: 1000;
+            animation: floatUp 3s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .particle-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999;
+            animation: particle-fade 1s ease-out forwards;
+        }
+
+        @keyframes particle-fade {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            position: relative;
+            min-height: 60px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #jaBtn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            animation: glow 2s ease infinite;
+        }
+
+        @keyframes glow {
+
+            0%,
+            100% {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(102, 126, 234, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 40px rgba(102, 126, 234, 0.8);
+            }
+        }
+
+        #jaBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        #nejBtn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            position: absolute;
+            left: 75%;
+            transform: translateX(-50%);
+            transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        #nejBtn.jumping {
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .success {
+            display: none;
+        }
+
+        .success.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .hearts {
+            font-size: 3em;
+            margin: 20px 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .time-options {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .time-btn {
+            padding: 12px 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .time-btn:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .email-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1em;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .email-link:hover {
+            transform: scale(1.1);
+        }
+
+        /* Confetti animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f0f;
+            position: absolute;
+            animation: confetti-fall 3s linear;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background particles -->
+    <div class="particle" style="top: 10%; left: 20%; animation-delay: 0s;"></div>
+    <div class="particle" style="top: 80%; left: 80%; animation-delay: 2s;"></div>
+    <div class="particle" style="top: 50%; left: 10%; animation-delay: 4s;"></div>
+    <div class="particle" style="top: 20%; left: 70%; animation-delay: 1s;"></div>
+    <div class="particle" style="top: 70%; left: 30%; animation-delay: 3s;"></div>
+
+    <!-- Animated emojis -->
+    <div class="emoji-bg" style="top: 15%; left: 10%; animation: float 20s infinite;">😊</div>
+    <div class="emoji-bg" style="top: 25%; left: 85%; animation: floatReverse 18s infinite; animation-delay: 1s;">🙂
+    </div>
+    <div class="emoji-bg" style="top: 60%; left: 8%; animation: float 22s infinite; animation-delay: 2s;">😄</div>
+
+    <div class="emoji-bg" style="top: 10%; left: 50%; animation: bounceFloat 15s infinite;">💕</div>
+    <div class="emoji-bg" style="top: 40%; left: 90%; animation: bounceFloat 17s infinite; animation-delay: 1.5s;">💖
+    </div>
+    <div class="emoji-bg" style="top: 75%; left: 70%; animation: bounceFloat 16s infinite; animation-delay: 3s;">💗
+    </div>
+    <div class="emoji-bg" style="top: 20%; left: 30%; animation: floatReverse 19s infinite; animation-delay: 0.5s;">❤️
+    </div>
+    <div class="emoji-bg" style="top: 85%; left: 15%; animation: float 21s infinite; animation-delay: 2.5s;">💝</div>
+
+    <div class="emoji-bg" style="top: 35%; left: 5%; animation: floatReverse 20s infinite; animation-delay: 1s;">🏋️‍♀️
+    </div>
+    <div class="emoji-bg" style="top: 55%; left: 92%; animation: float 23s infinite; animation-delay: 3.5s;">🏋️‍♂️
+    </div>
+    <div class="emoji-bg" style="top: 90%; left: 45%; animation: bounceFloat 18s infinite; animation-delay: 1s;">💪
+    </div>
+    <div class="emoji-bg" style="top: 12%; left: 75%; animation: floatReverse 19s infinite; animation-delay: 2s;">🏋️
+    </div>
+
+    <div class="container">
+        <div id="question">
+            <h1>Vill du ses idag?</h1>
+            <div class="emoji">🥺</div>
+            <div class="buttons">
+                <button id="jaBtn">Ja! 💕</button>
+                <button id="nejBtn">Nej</button>
+            </div>
+        </div>
+
+        <div class="success" id="success">
+            <h1>Yay! 🎉</h1>
+            <div class="hearts">💕✨💖</div>
+            <p style="font-size: 1.3em; color: #667eea; font-weight: 600; margin-bottom: 20px;">Då lagar vi mat och har
+                det bra ikväll! 👨‍🍳💕</p>
+            <p style="font-size: 1.2em; color: #764ba2; font-weight: 500;">Vilken tid passar bäst?</p>
+
+            <div class="time-options">
+                <button class="time-btn" onclick="selectTime('16:00')">⏰ 16:00</button>
+                <button class="time-btn" onclick="selectTime('17:00')">⏰ 17:00</button>
+                <button class="time-btn" onclick="selectTime('18:00')">⏰ 18:00</button>
+                <button class="time-btn" onclick="selectTime('19:00')">⏰ 19:00</button>
+                <button class="time-btn" onclick="selectTime('20:00')">⏰ 20:00</button>
+            </div>
+
+            <a id="emailLink" class="email-link" style="display: none;" target="_blank">
+                📧 Skicka Svar
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Audio Context for sound effects
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        // Sound effect functions
+        function playWhoosh() {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.1);
+
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+
+        function playPop() {
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 0.05);
+
+            gainNode.gain.setValueAtTime(0.4, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.05);
+        }
+
+        function playCelebration() {
+            // Multiple tones for celebration
+            const notes = [523.25, 659.25, 783.99, 1046.50]; // C, E, G, C (major chord)
+            notes.forEach((freq, index) => {
+                setTimeout(() => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+
+                    oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
+                    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.5);
+                }, index * 100);
+            });
+        }
+
+        function vibrate(pattern) {
+            if (navigator.vibrate) {
+                navigator.vibrate(pattern);
+            }
+        }
+
+        // Floating hearts effect
+        function createFloatingHeart(x, y) {
+            const hearts = ['💕', '💖', '💗', '💓', '💝', '❤️', '💜', '💙'];
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = x + 'px';
+            heart.style.top = y + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 3000);
+        }
+
+        // Particle trail effect
+        function createParticleTrail(x, y) {
+            const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#ffd700'];
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle-trail';
+                    particle.style.left = (x + (Math.random() - 0.5) * 30) + 'px';
+                    particle.style.top = (y + (Math.random() - 0.5) * 30) + 'px';
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    document.body.appendChild(particle);
+                    setTimeout(() => particle.remove(), 1000);
+                }, i * 50);
+            }
+        }
+
+        // Screen shake
+        function shakeScreen() {
+            container.classList.add('shake');
+            setTimeout(() => container.classList.remove('shake'), 500);
+        }
+
+        // Track mouse for particle trails
+        let lastParticleTime = 0;
+        document.addEventListener('mousemove', (e) => {
+            const now = Date.now();
+            if (now - lastParticleTime > 50 && !success.classList.contains('show')) {
+                createParticleTrail(e.clientX, e.clientY);
+                lastParticleTime = now;
+            }
+        });
+
+        const nejBtn = document.getElementById('nejBtn');
+        const jaBtn = document.getElementById('jaBtn');
+        const question = document.getElementById('question');
+        const success = document.getElementById('success');
+        const container = document.querySelector('.container');
+
+        let nejAttempts = 0;
+        let currentRotation = 0;
+
+        // Function to move the "Nej" button
+        function moveNejButton() {
+            nejAttempts++;
+            nejBtn.classList.add('jumping');
+
+            // Sound, haptic, and visual effects
+            playWhoosh();
+            vibrate(50);
+
+            const btnRect = nejBtn.getBoundingClientRect();
+
+            const containerRect = container.getBoundingClientRect();
+
+            // Much larger movement range!
+            const maxX = containerRect.width - btnRect.width - 40;
+            const maxY = 300; // Increased vertical movement
+
+            // Random position with bigger jumps
+            const randomX = (Math.random() * maxX - (maxX / 2)) * 1.5; // 50% more movement
+            const randomY = (Math.random() - 0.5) * maxY * 1.5; // 50% more movement
+
+            // Random rotation for extra chaos
+            currentRotation += (Math.random() - 0.5) * 60; // Random rotation
+
+            // Apply transform with rotation
+            nejBtn.style.left = `calc(50% + ${randomX}px)`;
+            nejBtn.style.top = `${randomY}px`;
+            nejBtn.style.transform = `translateX(-50%) rotate(${currentRotation}deg)`;
+        }
+
+        // Check if mouse is near the button
+        function checkProximity(mouseX, mouseY) {
+            const btnRect = nejBtn.getBoundingClientRect();
+            const btnCenterX = btnRect.left + btnRect.width / 2;
+            const btnCenterY = btnRect.top + btnRect.height / 2;
+
+            const distance = Math.sqrt(
+                Math.pow(mouseX - btnCenterX, 2) +
+                Math.pow(mouseY - btnCenterY, 2)
+            );
+
+            // Jump when mouse gets within 250px
+            if (distance < 250) {
+                moveNejButton();
+            }
+        }
+
+        // Track mouse movement
+        document.addEventListener('mousemove', (e) => {
+            if (!success.classList.contains('show')) {
+                checkProximity(e.clientX, e.clientY);
+            }
+        });
+
+        // Event listeners for "Nej" button
+        nejBtn.addEventListener('mouseenter', moveNejButton);
+        nejBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveNejButton();
+        });
+
+        // Click event (in case they manage to click it)
+        nejBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            moveNejButton();
+        });
+
+        // "Ja" button success
+        jaBtn.addEventListener('click', () => {
+            playPop();
+            playCelebration();
+            vibrate([100, 50, 100, 50, 200]);
+
+            // Rainbow background
+            document.body.classList.add('celebrating');
+
+            // Floating hearts everywhere
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const x = Math.random() * window.innerWidth;
+                    const y = window.innerHeight;
+                    createFloatingHeart(x, y);
+                }, i * 100);
+            }
+
+            question.classList.add('hidden');
+            success.classList.add('show');
+            createConfetti();
+        });
+
+        // Time selection function
+        function selectTime(time) {
+            const emailLink = document.getElementById('emailLink');
+            const subject = encodeURIComponent('Svar: Vill du ses idag?');
+            const body = encodeURIComponent(`Hej!\n\nJa, det låter jättebra! 💕\n\nJag kan klockan ${time}.\n\nSes då!`);
+
+            emailLink.href = `mailto:johantobin@gmail.com?subject=${subject}&body=${body}`;
+            emailLink.style.display = 'inline-block';
+
+            // Visual feedback
+            playPop();
+
+            // Hide time buttons
+            const timeButtons = document.querySelectorAll('.time-btn');
+            timeButtons.forEach(btn => btn.style.opacity = '0.3');
+            const clickedBtn = event.target;
+            clickedBtn.style.opacity = '1';
+            clickedBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            clickedBtn.style.color = 'white';
+        }
+
+        // Confetti effect - MAXIMIZED! 🎉
+        function createConfetti() {
+            const colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#ffd700', '#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#ff9ff3'];
+
+            // First massive burst
+            for (let i = 0; i < 200; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-10px';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = (Math.random() * 15 + 5) + 'px';
+                    confetti.style.height = confetti.style.width;
+                    confetti.style.animationDelay = Math.random() * 0.3 + 's';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 15);
+            }
+
+            // Continuous bursts for extra wow
+            for (let burst = 0; burst < 3; burst++) {
+                setTimeout(() => {
+                    for (let i = 0; i < 50; i++) {
+                        setTimeout(() => {
+                            const confetti = document.createElement('div');
+                            confetti.className = 'confetti';
+                            confetti.style.left = Math.random() * 100 + '%';
+                            confetti.style.top = '-10px';
+                            confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                            confetti.style.width = (Math.random() * 12 + 5) + 'px';
+                            confetti.style.height = confetti.style.width;
+                            confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                            document.body.appendChild(confetti);
+
+                            setTimeout(() => confetti.remove(), 4000);
+                        }, i * 20);
+                    }
+                }, burst * 800);
+            }
+        }
+    </script>
+</body>
